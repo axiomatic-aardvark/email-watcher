@@ -66,6 +66,7 @@ async fn main() {
     let mail_info_response = MailInfo::get().await;
 
     if mail_info_response.message.status == 103 {
+        println!("DEBUG {:?}", mail_info_response);
         panic!("Rate limit reached.")
     }
 
