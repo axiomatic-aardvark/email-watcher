@@ -127,8 +127,12 @@ async fn main() {
             buzzer.beep(0.5, 0.5);
         }
 
-        sleep(Duration::from_secs(10));
+        sleep(Duration::from_secs(5));
         buzzer_state = BuzzerState::Off;
         buzzer.off();
+
+        sleep(Duration::from_secs(600));
+        // buzzer_state = BuzzerState::Off;
+        // buzzer.off();
     }
 }
