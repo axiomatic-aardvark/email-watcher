@@ -94,7 +94,7 @@ async fn main() {
 
         if buzzer_state == BuzzerState::On {
             buzzer.on();
-            buzzer.beep(1.0,1.0);
+            buzzer.beep(0.5,0.5);
         }
 
         sleep(Duration::from_secs(10));
