@@ -82,7 +82,8 @@ async fn main() {
         .folders
         .iter()
         .filter(|f| f.name == "Кутия")
-        .collect::<&Folder>();
+        .collect::<&Folder>()
+        .new_msg_count;
 
     println!("debug initial message count {}", last_msg_count);
 
