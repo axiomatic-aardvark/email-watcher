@@ -4,6 +4,8 @@ use std::env;
 use std::thread::sleep;
 use std::time::Duration;
 
+use rust_gpiozero::*;
+
 #[derive(Serialize, Deserialize, Debug)]
 struct Folder {
     name: String,
@@ -33,8 +35,8 @@ struct MailInfo {
 
 impl MailInfo {
     async fn get() -> Self {
-        let username = env::var("USERNAME").expect("Username must be set");
-        let password = env::var("PASSWORD").expect("Password must be set");
+        let username = env::var("EMAIL_USER").expect("Username must be set");
+        let password = env::var("EMAIL_PASSWORD").expect("Password must be set");
 
         let url = format!(
             "https://api.abv.bg/api/checkMail/json?username={}&password={}",
@@ -54,14 +56,14 @@ impl MailInfo {
 }
 
 #[derive(Debug)]
-enum LED {
+enum Buzzer {
     On,
     Off,
 }
 
 #[tokio::main]
 async fn main() {
-    let mut led = LED::Off;
+    let mut led = Buzzer::Off;
 
     let mail_info_response = MailInfo::get().await;
 
@@ -82,7 +84,7 @@ async fn main() {
             println!("debug {}", msg_count);
 
             if msg_count > last_msg_count {
-                led = LED::On;
+                led = Buzzer::On;
                 last_msg_count = msg_count;
             }
         }
@@ -90,6 +92,6 @@ async fn main() {
         println!("{:?}", led);
 
         sleep(Duration::from_secs(10));
-        led = LED::Off;
+        led = Buzzer::Off;
     }
 }
