@@ -86,7 +86,7 @@ async fn main() {
         .collect::<Vec<Folder>>()
         .first()
         .unwrap()
-        .new_msg_count();
+        .new_msg_count;
 
     println!("debug initial message count {}", last_msg_count);
 
@@ -110,7 +110,7 @@ async fn main() {
                 .collect::<Vec<Folder>>()
                 .first()
                 .unwrap()
-                .new_msg_count();
+                .new_msg_count;
 
             println!("debug {}", msg_count);
 
