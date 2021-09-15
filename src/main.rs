@@ -73,12 +73,14 @@ async fn main() {
     }
 
     let mut last_msg_count = mail_info_response.mail.folders[0].new_msg_count;
+    println!("debug initial message count {}", msg_count);
+
     sleep(Duration::from_secs(10));
 
     loop {
         let mail_info_response = MailInfo::get().await;
 
-        if mail_info_response.message.status == 103 {
+        if mail_info_response.message.status != 0 {
             panic!("A fatal error occurred {:?}", mail_info_response.message.text)
         } else {
             let msg_count = mail_info_response.mail.folders[0].new_msg_count;
