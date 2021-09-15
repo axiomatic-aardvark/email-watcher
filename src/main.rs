@@ -69,13 +69,22 @@ async fn main() {
     let mail_info_response = MailInfo::get().await;
 
     if mail_info_response.message.status != 0 {
-        panic!("A fatal error occurred:  {:?}", mail_info_response.message.text)
+        panic!(
+            "A fatal error occurred:  {:?}",
+            mail_info_response.message.text
+        )
     }
 
     println!("debug mail info response {:?}", mail_info_response);
 
+    let mut last_msg_count = mail_info_response
+        .mail
+        .folders
+        .iter()
+        .filter(|f| f.name == "Кутия")
+        .collect()
+        .first();
 
-    let mut last_msg_count = mail_info_response.mail.folders[0].new_msg_count;
     println!("debug initial message count {}", last_msg_count);
 
     sleep(Duration::from_secs(10));
@@ -84,9 +93,20 @@ async fn main() {
         let mail_info_response = MailInfo::get().await;
 
         if mail_info_response.message.status != 0 {
-            panic!("A fatal error occurred {:?}", mail_info_response.message.text)
+            panic!(
+                "A fatal error occurred {:?}",
+                mail_info_response.message.text
+            )
         } else {
-            let msg_count = mail_info_response.mail.folders[0].new_msg_count;
+            let msg_count = mail_info_response
+                .mail
+                .folders
+                .iter()
+                .filter(|f| f.name == "Кутия")
+                .collect()
+                .first()
+                .new_msg_count;
+
             println!("debug {}", msg_count);
 
             if msg_count > last_msg_count {
@@ -99,7 +119,7 @@ async fn main() {
 
         if buzzer_state == BuzzerState::On {
             buzzer.on();
-            buzzer.beep(0.5,0.5);
+            buzzer.beep(0.5, 0.5);
         }
 
         sleep(Duration::from_secs(10));
