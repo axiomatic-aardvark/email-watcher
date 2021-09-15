@@ -55,7 +55,7 @@ impl MailInfo {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 enum BuzzerState {
     On,
     Off,
