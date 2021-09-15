@@ -6,7 +6,7 @@ use std::time::Duration;
 
 use rust_gpiozero::*;
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 struct Folder {
     name: String,
     id: u32,
