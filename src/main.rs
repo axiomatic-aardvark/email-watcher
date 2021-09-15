@@ -82,8 +82,10 @@ async fn main() {
         .folders
         .iter()
         .filter(|f| f.name == "Кутия")
-        .collect::<Folder>()
-        .new_msg_count;
+        .cloned()
+        .collect()
+        .first()
+        .new_msg_count();
 
     println!("debug initial message count {}", last_msg_count);
 
@@ -103,8 +105,10 @@ async fn main() {
                 .folders
                 .iter()
                 .filter(|f| f.name == "Кутия")
-                .collect::<Folder>()
-                .new_msg_count;
+                .cloned()
+                .collect()
+                .first()
+                .new_msg_count();
 
             println!("debug {}", msg_count);
 
