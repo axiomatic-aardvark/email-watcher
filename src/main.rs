@@ -73,7 +73,7 @@ async fn main() {
     }
 
     let mut last_msg_count = mail_info_response.mail.folders[0].new_msg_count;
-    println!("debug initial message count {}", msg_count);
+    println!("debug initial message count {}", last_msg_count);
 
     sleep(Duration::from_secs(10));
 
