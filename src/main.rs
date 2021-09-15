@@ -56,14 +56,15 @@ impl MailInfo {
 }
 
 #[derive(Debug)]
-enum Buzzer {
+enum BuzzerState {
     On,
     Off,
 }
 
 #[tokio::main]
 async fn main() {
-    let mut led = Buzzer::Off;
+    let mut buzzer_state = BuzzerState::Off;
+    let mut buzzer = Buzzer::new(17);
 
     let mail_info_response = MailInfo::get().await;
 
@@ -84,14 +85,20 @@ async fn main() {
             println!("debug {}", msg_count);
 
             if msg_count > last_msg_count {
-                led = Buzzer::On;
+                buzzer_state = BuzzerState::On;
                 last_msg_count = msg_count;
             }
         }
 
-        println!("{:?}", led);
+        println!("debug {:?}", buzzer_state);
+
+        if buzzer_state == BuzzerState::On {
+            buzzer.on();
+            buzzer.beep(1.0,1.0);
+        }
 
         sleep(Duration::from_secs(10));
-        led = Buzzer::Off;
+        buzzer_state = BuzzerState::Off;
+        buzzer.off();
     }
 }
