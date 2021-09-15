@@ -72,6 +72,9 @@ async fn main() {
         panic!("A fatal error occurred:  {:?}", mail_info_response.message.text)
     }
 
+    println!("debug mail info response {:?}", mail_info_response);
+
+
     let mut last_msg_count = mail_info_response.mail.folders[0].new_msg_count;
     println!("debug initial message count {}", last_msg_count);
 
